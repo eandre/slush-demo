@@ -1,19 +1,19 @@
 # URL Shortener Starter
 
-This is an Encore starter for a URL Shortener. It has two API endpoints and a PostgreSQL database to store the URL IDs 
+This is an Encore starter for a URL Shortener. It has two API endpoints and a PostgreSQL database to store the URL IDs
 and retrieve the full URL given an ID.
 
 ## Build from scratch with a tutorial
 
 If you prefer to built it yourself, check out the [tutorial](https://encore.dev/docs/tutorials/rest-api) to learn how to build this application from scratch.
 
-## Prerequisites 
+## Prerequisites
 
 **Install Encore:**
 - **macOS:** `brew install encoredev/tap/encore`
 - **Linux:** `curl -L https://encore.dev/install.sh | bash`
 - **Windows:** `iwr https://encore.dev/install.ps1 | iex`
-  
+
 **Docker:**
 1. [Install Docker](https://docker.com)
 2. Start Docker
@@ -116,4 +116,23 @@ To run tests, configure the `test` command in your `package.json` to the test ru
 
 ```bash
 encore test
+```
+
+
+## Schema
+
+```ts
+interface Schema {
+  foo: Header<"x-foo">;
+  name?: Query<string>;
+  excitement?: Query<number>;
+
+  someKey?: string;
+  someOtherKey?: number;
+  requiredKey: number[];
+  nullabkeKey?: number | null;
+  multipleTypesKey?: boolean | number;
+  multipleRestrictedTypesKey?: string | number;
+  enumKey?: "John" | "Foo";
+}
 ```
