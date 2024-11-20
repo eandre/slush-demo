@@ -1,4 +1,5 @@
 import { api } from "encore.dev/api";
+import { Topic } from "encore.dev/pubsub";
 import { SQLDatabase } from "encore.dev/storage/sqldb";
 
 interface Todo {
@@ -15,6 +16,8 @@ export const create = api(
       VALUES (${req.title})
       RETURNING *;
       `;
+
+    await topic.publish(resp as Todo);
     return resp as Todo;
   }
 );
@@ -24,4 +27,8 @@ export const create = api(
 // Create the todo database and assign it to the "db" variable
 const db = new SQLDatabase("todos", {
   migrations: "./migrations",
+});
+
+const topic = new Topic<Todo>("todo.added", {
+  deliveryGuarantee: "at-least-once",
 });
